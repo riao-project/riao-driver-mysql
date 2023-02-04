@@ -12,7 +12,8 @@
 		"target": "es6",
 		"types": ["node"],
 		"typeRoots": [],
-		"lib": ["es2020"]
+		"lib": ["es2020"],
+		"skipLibCheck": true
 	},
 	"exclude": ["./dist/"],
 	"include": [

@@ -1,1 +1,4 @@
-export const a = true;
+export { MySqlConnectionOptions } from './driver';
+
+export * from './driver-mysql-5';
+export * from './driver-mysql-8';
