@@ -1,7 +1,7 @@
 {
-	"name": "{{project-name}}",
+	"name": "riao-driver-mysql",
 	"version": "1.0.0",
-	"description": "{{project-name}}",
+	"description": "riao-driver-mysql",
 	"private": "true",
 	"typescript-template": {
 		"base": "1.0.0",
@@ -42,13 +42,13 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/{{project-org}}/{{project-name}}.git"
+		"url": "git+https://github.com/riao-driver-mysql/riao-driver-mysql.git"
 	},
-	"author": "{{project-org}}",
+	"author": "riao-driver-mysql",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/{{project-org}}/{{project-name}}/issues"
+		"url": "https://github.com/riao-driver-mysql/riao-driver-mysql/issues"
 	},
-	"homepage": "https://github.com/{{project-org}}/{{project-name}}#readme",
+	"homepage": "https://github.com/riao-driver-mysql/riao-driver-mysql#readme",
 	"keywords": []
 }
