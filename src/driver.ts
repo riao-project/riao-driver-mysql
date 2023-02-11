@@ -6,10 +6,13 @@ import {
 	DatabaseQueryOptions,
 	DatabaseQueryResult,
 } from 'riao-dbal/src';
+import { MySqlQueryBuilder } from './query-builder';
 
 export type MySqlConnectionOptions = DatabaseConnectionOptions;
 
 export class MySqlDriver implements DatabaseDriver {
+	queryBuilder = MySqlQueryBuilder;
+
 	protected conn: Pool;
 
 	public async connect(options: MySqlConnectionOptions): Promise<void> {
