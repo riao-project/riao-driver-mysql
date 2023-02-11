@@ -3,6 +3,7 @@ import { createPool, Pool } from 'mysql2/promise';
 import {
 	DatabaseConnectionOptions,
 	DatabaseDriver,
+	DatabaseQueryBuilder,
 	DatabaseQueryOptions,
 	DatabaseQueryResult,
 } from 'riao-dbal/src';
@@ -15,7 +16,7 @@ export class MySqlDriver implements DatabaseDriver {
 
 	protected conn: Pool;
 
-	public async connect(options: MySqlConnectionOptions): Promise<void> {
+	public async connect(options: MySqlConnectionOptions): Promise<this> {
 		this.conn = createPool({
 			host: options.host,
 			port: options.port,
@@ -24,6 +25,8 @@ export class MySqlDriver implements DatabaseDriver {
 			password: options.password,
 			namedPlaceholders: true,
 		});
+
+		return this;
 	}
 
 	public async disconnect(): Promise<void> {
@@ -31,8 +34,12 @@ export class MySqlDriver implements DatabaseDriver {
 	}
 
 	public async query(
-		options: DatabaseQueryOptions
+		options: DatabaseQueryOptions | DatabaseQueryBuilder
 	): Promise<DatabaseQueryResult> {
+		if (options instanceof DatabaseQueryBuilder) {
+			options = options.toDatabaseQuery();
+		}
+
 		const [rows, fields] = await this.conn.execute(
 			options.sql,
 			options.params
@@ -41,5 +48,9 @@ export class MySqlDriver implements DatabaseDriver {
 		return {
 			results: Array.isArray(rows) ? rows : [rows],
 		};
+	}
+
+	public getQueryBuilder() {
+		return new this.queryBuilder();
 	}
 }
