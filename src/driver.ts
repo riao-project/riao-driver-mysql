@@ -36,14 +36,23 @@ export class MySqlDriver implements DatabaseDriver {
 	public async query(
 		options: DatabaseQueryOptions | DatabaseQueryBuilder
 	): Promise<DatabaseQueryResult> {
-		if (options instanceof DatabaseQueryBuilder) {
-			options = options.toDatabaseQuery();
+		let { sql, params } =
+			options instanceof DatabaseQueryBuilder
+				? options.toDatabaseQuery()
+				: options;
+
+		params = params ?? [];
+
+		const paramValues: any[] = [];
+
+		for (const param of params) {
+			for (const key in param) {
+				const value = param[key];
+				paramValues.push(value);
+			}
 		}
 
-		const [rows, fields] = await this.conn.execute(
-			options.sql,
-			options.params
-		);
+		const [rows, fields] = await this.conn.execute(sql, paramValues);
 
 		return {
 			results: Array.isArray(rows) ? rows : [rows],
