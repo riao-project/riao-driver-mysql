@@ -65,4 +65,12 @@ export class MySqlDriver
 	public getQueryBuilder() {
 		return new this.queryBuilder();
 	}
+
+	public async getVersion(): Promise<string> {
+		const { results } = await this.query({
+			sql: 'SHOW VARIABLES LIKE "%innodb_version%"',
+		});
+
+		return results[0]?.Value;
+	}
 }
