@@ -1,19 +1,18 @@
 import { createPool, Pool } from 'mysql2/promise';
 
 import {
-	BaseDatabaseDriver,
 	DatabaseConnectionOptions,
-	DatabaseDriverInterface,
+	DatabaseDriver,
 	DatabaseQueryResult,
 	DatabaseQueryTypes,
 } from 'riao-dbal/src';
+import { MySqlDataDefinitionBuilder } from './ddl-builder';
 import { MySqlQueryBuilder } from './query-builder';
 
 export type MySqlConnectionOptions = DatabaseConnectionOptions;
 
-export class MySqlDriver
-	extends BaseDatabaseDriver
-	implements DatabaseDriverInterface {
+export class MySqlDriver extends DatabaseDriver {
+	dataDefinitionBulider = MySqlDataDefinitionBuilder;
 	queryBuilder = MySqlQueryBuilder;
 
 	protected conn: Pool;
@@ -46,10 +45,6 @@ export class MySqlDriver
 		return {
 			results: Array.isArray(rows) ? rows : [rows],
 		};
-	}
-
-	public getQueryBuilder() {
-		return new this.queryBuilder();
 	}
 
 	public async getVersion(): Promise<string> {
