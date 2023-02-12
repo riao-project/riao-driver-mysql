@@ -37,6 +37,7 @@
 		"prettier": "^2.8.0",
 		"prettier-eslint": "^15.0.1",
 		"prettier-eslint-cli": "^7.1.0",
+		"riao-driver-test": "file:../riao-driver-test",
 		"ts-appconfig": "^1.2.0",
 		"ts-node": "^10.9.1",
 		"ts-packager": "^1.1.0",
