@@ -41,16 +41,7 @@ export class MySqlDriver
 		let { sql, params } = this.toDatabaseQueryOptions(options);
 		params = params ?? [];
 
-		const paramValues: any[] = [];
-
-		for (const param of params) {
-			for (const key in param) {
-				const value = param[key];
-				paramValues.push(value);
-			}
-		}
-
-		const [rows, fields] = await this.conn.execute(sql, paramValues);
+		const [rows, fields] = await this.conn.execute(sql, params);
 
 		return {
 			results: Array.isArray(rows) ? rows : [rows],
