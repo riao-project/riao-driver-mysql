@@ -4,9 +4,8 @@ import {
 	BaseDatabaseDriver,
 	DatabaseConnectionOptions,
 	DatabaseDriverInterface,
-	DatabaseQueryBuilder,
-	DatabaseQueryOptions,
 	DatabaseQueryResult,
+	DatabaseQueryTypes,
 } from 'riao-dbal/src';
 import { MySqlQueryBuilder } from './query-builder';
 
@@ -37,13 +36,9 @@ export class MySqlDriver
 	}
 
 	public async query(
-		options: DatabaseQueryOptions | DatabaseQueryBuilder
+		options: DatabaseQueryTypes
 	): Promise<DatabaseQueryResult> {
-		let { sql, params } =
-			options instanceof DatabaseQueryBuilder
-				? options.toDatabaseQuery()
-				: options;
-
+		let { sql, params } = this.toDatabaseQueryOptions(options);
 		params = params ?? [];
 
 		const paramValues: any[] = [];
