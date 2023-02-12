@@ -1,8 +1,9 @@
 import { createPool, Pool } from 'mysql2/promise';
 
 import {
+	BaseDatabaseDriver,
 	DatabaseConnectionOptions,
-	DatabaseDriver,
+	DatabaseDriverInterface,
 	DatabaseQueryBuilder,
 	DatabaseQueryOptions,
 	DatabaseQueryResult,
@@ -11,7 +12,9 @@ import { MySqlQueryBuilder } from './query-builder';
 
 export type MySqlConnectionOptions = DatabaseConnectionOptions;
 
-export class MySqlDriver implements DatabaseDriver {
+export class MySqlDriver
+	extends BaseDatabaseDriver
+	implements DatabaseDriverInterface {
 	queryBuilder = MySqlQueryBuilder;
 
 	protected conn: Pool;
