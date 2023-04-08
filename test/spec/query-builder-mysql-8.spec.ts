@@ -17,7 +17,7 @@ describe('QueryBuilder MySql 8', () => {
 	it('can select', () => {
 		const { sql } = new MySql8QueryBuilder()
 			.select({
-				from: 'users',
+				table: 'users',
 			})
 			.toDatabaseQuery();
 
@@ -28,7 +28,7 @@ describe('QueryBuilder MySql 8', () => {
 		const { sql } = new MySql8QueryBuilder()
 			.select({
 				columns: ['id'],
-				from: 'users',
+				table: 'users',
 			})
 			.toDatabaseQuery();
 
@@ -39,7 +39,7 @@ describe('QueryBuilder MySql 8', () => {
 		const { sql } = new MySql8QueryBuilder()
 			.select({
 				columns: ['id', 'username'],
-				from: 'users',
+				table: 'users',
 			})
 			.toDatabaseQuery();
 
