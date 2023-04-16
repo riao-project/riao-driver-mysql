@@ -9,7 +9,5 @@ test({
 	db: DatabaseMySql8,
 	expectedVersion: /^8\.[0-9]+\.[0-9]+$/,
 	connectionOptions: connectionOptionsMySql8,
-	rootUsername: env.TEST_MYSQL8_ROOT_UESRNAME,
-	rootPassword: env.TEST_MYSQL8_ROOT_PASSWORD,
 	rootDatabase: env.TEST_MYSQL8_ROOT_DATABASE,
 });
