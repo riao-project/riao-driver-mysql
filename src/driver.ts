@@ -8,12 +8,14 @@ import {
 } from 'riao-dbal/src';
 import { MySqlDataDefinitionBuilder } from './ddl-builder';
 import { MySqlQueryBuilder } from './query-builder';
+import { MySqlSchemaQueryRepository } from './schema-query-repository';
 
 export type MySqlConnectionOptions = DatabaseConnectionOptions;
 
 export class MySqlDriver extends DatabaseDriver {
 	dataDefinitionBulider = MySqlDataDefinitionBuilder;
 	queryBuilder = MySqlQueryBuilder;
+	schemaQueryRepository = MySqlSchemaQueryRepository;
 
 	protected conn: Pool;
 
