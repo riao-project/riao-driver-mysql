@@ -41,8 +41,14 @@ export class MySqlDriver extends DatabaseDriver {
 	): Promise<DatabaseQueryResult> {
 		let { sql, params } = this.toDatabaseQueryOptions(options);
 		params = params ?? [];
+		let rows, fields;
 
-		const [rows, fields] = await this.conn.execute(sql, params);
+		if (params.length) {
+			[rows, fields] = await this.conn.execute(sql, params);
+		}
+		else {
+			[rows, fields] = await this.conn.query(sql);
+		}
 
 		return {
 			results: Array.isArray(rows) ? rows : [rows],
