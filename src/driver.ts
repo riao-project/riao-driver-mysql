@@ -29,6 +29,7 @@ export class MySqlDriver extends DatabaseDriver {
 			user: options.username,
 			password: options.password,
 			namedPlaceholders: true,
+			supportBigNumbers: true,
 		});
 
 		return this;
