@@ -30,6 +30,7 @@ export class MySqlDriver extends DatabaseDriver {
 			password: options.password,
 			namedPlaceholders: true,
 			supportBigNumbers: true,
+			timezone: 'Z',
 		});
 
 		return this;
