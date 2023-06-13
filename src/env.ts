@@ -1,3 +1,3 @@
 import { DatabaseEnv } from 'riao-dbal/src/database';
 
-export class DatabaseEnvMySql5 extends DatabaseEnv {}
+export class DatabaseEnvMySql extends DatabaseEnv {}

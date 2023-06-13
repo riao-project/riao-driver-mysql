@@ -6,19 +6,10 @@ import {
 	DatabaseQueryResult,
 	DatabaseQueryTypes,
 } from 'riao-dbal/src';
-import { MySqlDataDefinitionBuilder } from './ddl-builder';
-import { MySqlQueryBuilder } from './query-builder';
-import { MySqlSchemaQueryRepository } from './schema-query-repository';
-import { MySqlQueryRepository } from './query-repository-mysql';
 
 export type MySqlConnectionOptions = DatabaseConnectionOptions;
 
 export class MySqlDriver extends DatabaseDriver {
-	dataDefinitionBulider = MySqlDataDefinitionBuilder;
-	queryBuilder = MySqlQueryBuilder;
-	queryRepository = MySqlQueryRepository;
-	schemaQueryRepository = MySqlSchemaQueryRepository;
-
 	protected conn: Pool;
 
 	public async connect(options: MySqlConnectionOptions): Promise<this> {
