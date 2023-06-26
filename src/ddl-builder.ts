@@ -1,6 +1,15 @@
 import { DataDefinitionBuilder } from 'riao-dbal/src';
 
 export class MySqlDataDefinitionBuilder extends DataDefinitionBuilder {
+	public constructor() {
+		super();
+
+		this.columnTypes = <any>{
+			...this.columnTypes,
+			TIMESTAMP: 'DATETIME'
+		};
+	}
+
 	public alterColumnStatement(column: string): this {
 		this.sql += 'CHANGE COLUMN ' + column + ' ';
 
