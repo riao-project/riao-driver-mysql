@@ -1,3 +1,3 @@
-import { DatabaseEnv } from 'riao-dbal/src/config';
+import { DatabaseEnv } from '@riao/dbal/config';
 
 export class DatabaseEnvMySql extends DatabaseEnv {}

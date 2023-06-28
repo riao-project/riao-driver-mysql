@@ -1,7 +1,7 @@
 {
-	"name": "riao-driver-mysql",
+	"name": "@riao/mysql",
 	"version": "1.0.0",
-	"description": "riao-driver-mysql",
+	"description": "riao driver for mysql",
 	"private": "true",
 	"typescript-template": {
 		"base": "1.0.0",
@@ -22,11 +22,12 @@
 		"publish": "npm run script -- publish"
 	},
 	"dependencies": {
-		"mysql2": "^3.1.0",
-		"riao-dbal": "file:../riao-dbal"
+		"@riao/dbal": "^1.0.1",
+		"mysql2": "^3.1.0"
 	},
 	"devDependencies": {
 		"@istanbuljs/nyc-config-typescript": "^1.0.2",
+		"@riao/driver-test": "^1.0.0",
 		"@types/jasmine": "^4.3.0",
 		"@types/node": "^18.11.9",
 		"@typescript-eslint/eslint-plugin": "^5.44.0",
@@ -37,7 +38,6 @@
 		"prettier": "^2.8.0",
 		"prettier-eslint": "^15.0.1",
 		"prettier-eslint-cli": "^7.1.0",
-		"riao-driver-test": "file:../riao-driver-test",
 		"ts-appconfig": "^1.2.0",
 		"ts-node": "^10.9.1",
 		"ts-packager": "^1.1.0",
@@ -48,13 +48,13 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/riao-driver-mysql/riao-driver-mysql.git"
+		"url": "git+https://github.com/riao-project/riao-driver-mysql.git"
 	},
-	"author": "riao-driver-mysql",
+	"author": "riao",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/riao-driver-mysql/riao-driver-mysql/issues"
+		"url": "https://github.com/riao-project/riao-driver-mysql/issues"
 	},
-	"homepage": "https://github.com/riao-driver-mysql/riao-driver-mysql#readme",
+	"homepage": "https://github.com/riao-project/riao-driver-mysql#readme",
 	"keywords": []
 }

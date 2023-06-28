@@ -1,4 +1,4 @@
-import { DataDefinitionBuilder } from 'riao-dbal/src';
+import { DataDefinitionBuilder } from '@riao/dbal';
 
 export class MySqlDataDefinitionBuilder extends DataDefinitionBuilder {
 	public constructor() {
@@ -6,7 +6,7 @@ export class MySqlDataDefinitionBuilder extends DataDefinitionBuilder {
 
 		this.columnTypes = <any>{
 			...this.columnTypes,
-			TIMESTAMP: 'DATETIME'
+			TIMESTAMP: 'DATETIME',
 		};
 	}
 

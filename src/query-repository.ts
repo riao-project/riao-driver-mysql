@@ -1,5 +1,5 @@
-import { DatabaseRecord } from 'riao-dbal/src/record';
-import { InsertOptions, QueryRepository } from 'riao-dbal/src/dml';
+import { DatabaseRecord } from '@riao/dbal/record';
+import { InsertOptions, QueryRepository } from '@riao/dbal/dml';
 
 export class MySqlQueryRepository<
 	T extends DatabaseRecord = DatabaseRecord

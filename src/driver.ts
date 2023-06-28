@@ -5,7 +5,7 @@ import {
 	DatabaseDriver,
 	DatabaseQueryResult,
 	DatabaseQueryTypes,
-} from 'riao-dbal/src';
+} from '@riao/dbal';
 
 export type MySqlConnectionOptions = DatabaseConnectionOptions;
 

@@ -1,7 +1,7 @@
 import 'jasmine';
 import { DatabaseMySql8 } from '../../src';
 import { connectionOptionsMySql8 } from '../connection-options';
-import { test } from 'riao-driver-test/src';
+import { test } from '@riao/driver-test';
 import { env } from '../env';
 
 test({

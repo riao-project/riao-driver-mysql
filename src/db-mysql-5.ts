@@ -1,4 +1,4 @@
-import { Database } from 'riao-dbal/src/database';
+import { Database } from '@riao/dbal/database';
 import { MySqlDriver } from './driver';
 import { DatabaseEnvMySql } from './env';
 import { MySqlQueryRepository } from './query-repository';
