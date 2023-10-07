@@ -1,16 +1,18 @@
 import { createPool, Pool } from 'mysql2/promise';
 
 import {
+	Database,
 	DatabaseConnectionOptions,
 	DatabaseDriver,
 	DatabaseQueryResult,
 	DatabaseQueryTypes,
 } from '@riao/dbal';
+import { Transaction } from '@riao/dbal/database/transaction';
 
 export type MySqlConnectionOptions = DatabaseConnectionOptions;
 
 export class MySqlDriver extends DatabaseDriver {
-	protected conn: Pool;
+	public conn: Pool;
 
 	public async connect(options: MySqlConnectionOptions): Promise<this> {
 		this.conn = createPool({
@@ -56,5 +58,33 @@ export class MySqlDriver extends DatabaseDriver {
 		});
 
 		return results[0]?.Value;
+	}
+
+	public async transaction<T>(
+		fn: (transaction: Transaction) => Promise<T>,
+		transaction: Transaction
+	): Promise<T> {
+		const mysqlConnection = await this.conn.getConnection();
+		let result: T;
+
+		transaction.driver.conn = mysqlConnection;
+		transaction.ddl.setDriver(transaction.driver);
+		transaction.query.setDriver(transaction.driver);
+
+		await mysqlConnection.beginTransaction();
+
+		try {
+			result = await fn(transaction);
+			await mysqlConnection.commit();
+			mysqlConnection.release();
+		}
+		catch (e) {
+			await mysqlConnection.rollback();
+			mysqlConnection.release();
+
+			throw e;
+		}
+
+		return result;
 	}
 }
