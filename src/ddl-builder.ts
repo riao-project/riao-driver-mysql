@@ -1,4 +1,5 @@
 import { DataDefinitionBuilder } from '@riao/dbal';
+import { MySqlBuilder } from './sql-builder';
 
 export class MySqlDataDefinitionBuilder extends DataDefinitionBuilder {
 	public constructor() {
@@ -8,21 +9,22 @@ export class MySqlDataDefinitionBuilder extends DataDefinitionBuilder {
 			...this.columnTypes,
 			TIMESTAMP: 'DATETIME',
 		};
+	}
 
-		this.operators.openEnclosure = '`';
-		this.operators.closeEnclosure = '`';
+	protected getSqlType() {
+		return MySqlBuilder;
 	}
 
 	public alterColumnStatement(column: string): this {
-		this.sql += 'CHANGE COLUMN ';
-		this.columnName(column);
-		this.sql += ' ';
+		this.sql.append('CHANGE COLUMN ');
+		this.sql.columnName(column);
+		this.sql.space();
 
 		return this;
 	}
 
 	public createUserPassword(password: string): this {
-		this.sql += 'IDENTIFIED BY "' + password + '" ';
+		this.sql.append('IDENTIFIED BY "' + password + '" ');
 
 		return this;
 	}
