@@ -1,7 +1,10 @@
-import { DataDefinitionBuilder } from '@riao/dbal';
+import { ColumnOptions, ColumnType, DataDefinitionBuilder } from '@riao/dbal';
 import { MySqlBuilder } from './sql-builder';
+import { MySqlQueryBuilder } from './query-builder';
 
 export class MySqlDataDefinitionBuilder extends DataDefinitionBuilder {
+	protected queryBuilderType = MySqlQueryBuilder;
+
 	public constructor() {
 		super();
 
@@ -9,6 +12,18 @@ export class MySqlDataDefinitionBuilder extends DataDefinitionBuilder {
 			...this.columnTypes,
 			TIMESTAMP: 'DATETIME',
 		};
+	}
+
+	public createTableColumn(column: ColumnOptions): this {
+		if (column.type === ColumnType.UUID) {
+			return this.createTableColumn({
+				...(column as any),
+				type: ColumnType.VARCHAR,
+				length: 36,
+			});
+		}
+
+		return super.createTableColumn(column);
 	}
 
 	protected getSqlType() {
