@@ -40,6 +40,25 @@ export class MySqlDriver extends DatabaseDriver {
 		params = params ?? [];
 		let rows, fields;
 
+		if (sql.includes(';')) {
+			if (params.length) {
+				throw new Error(
+					'MySQL Driver cannot accept multiple statements if params are provided.'
+				);
+			}
+
+			const statements = sql
+				.trim()
+				.split(';')
+				.filter((stmt) => stmt.length);
+
+			for (const stmt of statements) {
+				rows = await this.query({ sql: stmt });
+			}
+
+			return this.resultFormat(rows);
+		}
+
 		if (params.length) {
 			[rows, fields] = await this.conn.execute(sql, params);
 		}
@@ -47,6 +66,10 @@ export class MySqlDriver extends DatabaseDriver {
 			[rows, fields] = await this.conn.query(sql);
 		}
 
+		return this.resultFormat(rows);
+	}
+
+	public resultFormat(rows: any[]): DatabaseQueryResult {
 		return {
 			results: Array.isArray(rows) ? rows : [rows],
 		};
