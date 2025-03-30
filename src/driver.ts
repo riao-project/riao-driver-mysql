@@ -36,34 +36,18 @@ export class MySqlDriver extends DatabaseDriver {
 	public async query(
 		options: DatabaseQueryTypes
 	): Promise<DatabaseQueryResult> {
-		let { sql, params } = this.toDatabaseQueryOptions(options);
-		params = params ?? [];
+		const queries = this.toDatabaseQueryOptions(options);
 		let rows, fields;
 
-		if (sql.includes(';')) {
-			if (params.length) {
-				throw new Error(
-					'MySQL Driver cannot accept multiple statements if params are provided.'
-				);
+		for (const query of queries) {
+			const { sql, params } = query;
+
+			if (params?.length) {
+				[rows, fields] = await this.conn.execute(sql, params);
 			}
-
-			const statements = sql
-				.trim()
-				.split(';')
-				.filter((stmt) => stmt.length);
-
-			for (const stmt of statements) {
-				rows = await this.query({ sql: stmt });
+			else {
+				[rows, fields] = await this.conn.query(sql);
 			}
-
-			return this.resultFormat(rows);
-		}
-
-		if (params.length) {
-			[rows, fields] = await this.conn.execute(sql, params);
-		}
-		else {
-			[rows, fields] = await this.conn.query(sql);
 		}
 
 		return this.resultFormat(rows);
