@@ -6,11 +6,11 @@ import { MySqlDataDefinitionBuilder } from './ddl-builder';
 import { MySqlQueryBuilder } from './query-builder';
 
 export class DatabaseMySql8 extends Database {
-	driverType = MySqlDriver;
-	envType = DatabaseEnvMySql;
+	override driverType = MySqlDriver;
+	override envType = DatabaseEnvMySql;
 
-	queryRepositoryType = MySqlQueryRepository;
+	override queryRepositoryType = MySqlQueryRepository;
 
-	ddlBuilderType = MySqlDataDefinitionBuilder;
-	queryBuilderType = MySqlQueryBuilder;
+	override ddlBuilderType = MySqlDataDefinitionBuilder;
+	override queryBuilderType = MySqlQueryBuilder;
 }

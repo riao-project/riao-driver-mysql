@@ -12,9 +12,11 @@ import { Transaction } from '@riao/dbal/database/transaction';
 export type MySqlConnectionOptions = DatabaseConnectionOptions;
 
 export class MySqlDriver extends DatabaseDriver {
-	public conn: Pool;
+	override conn: undefined | Pool = undefined;
 
-	public async connect(options: MySqlConnectionOptions): Promise<this> {
+	public override async connect(
+		options: MySqlConnectionOptions
+	): Promise<this> {
 		this.conn = createPool({
 			host: options.host,
 			port: options.port,
@@ -29,11 +31,11 @@ export class MySqlDriver extends DatabaseDriver {
 		return this;
 	}
 
-	public async disconnect(): Promise<void> {
-		await this.conn.end();
+	public override async disconnect(): Promise<void> {
+		await this.conn?.end();
 	}
 
-	public async query(
+	public override async query(
 		options: DatabaseQueryTypes
 	): Promise<DatabaseQueryResult> {
 		const queries = this.toDatabaseQueryOptions(options);
@@ -44,8 +46,7 @@ export class MySqlDriver extends DatabaseDriver {
 
 			if (params?.length) {
 				[rows, fields] = await this.conn.execute(sql, params);
-			}
-			else {
+			} else {
 				[rows, fields] = await this.conn.query(sql);
 			}
 		}
@@ -59,18 +60,24 @@ export class MySqlDriver extends DatabaseDriver {
 		};
 	}
 
-	public async getVersion(): Promise<string> {
+	public override async getVersion(): Promise<string> {
 		const { results } = await this.query({
 			sql: 'SHOW VARIABLES LIKE "%innodb_version%"',
 		});
 
-		return results[0]?.Value;
+		return results && results.length ? results[0]['Value'] : 'unknown';
 	}
 
-	public async transaction<T>(
+	public override async transaction<T>(
 		fn: (transaction: Transaction) => Promise<T>,
 		transaction: Transaction
 	): Promise<T> {
+		if (this.conn === undefined) {
+			throw new Error(
+				'Transaction not started, connection is not established'
+			);
+		}
+
 		const mysqlConnection = await this.conn.getConnection();
 		let result: T;
 
@@ -84,8 +91,7 @@ export class MySqlDriver extends DatabaseDriver {
 			result = await fn(transaction);
 			await mysqlConnection.commit();
 			mysqlConnection.release();
-		}
-		catch (e) {
+		} catch (e) {
 			await mysqlConnection.rollback();
 			mysqlConnection.release();
 

@@ -6,7 +6,7 @@ export class MySqlQueryBuilder extends DatabaseQueryBuilder {
 		super();
 	}
 
-	protected getSqlType() {
+	protected override getSqlType() {
 		return MySqlBuilder;
 	}
 }
