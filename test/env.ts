@@ -19,6 +19,13 @@ export class Environment extends AppConfig {
 	readonly TEST_MYSQL8_PASSWORD = 'rootpassword1234';
 	readonly TEST_MYSQL8_DATABASE = 'riaodb';
 	readonly TEST_MYSQL8_ROOT_DATABASE = 'db';
+
+	readonly TEST_MYSQL8_4_HOST = 'localhost';
+	readonly TEST_MYSQL8_4_PORT = 3308;
+	readonly TEST_MYSQL8_4_USERNAME = 'root';
+	readonly TEST_MYSQL8_4_PASSWORD = 'rootpassword1234';
+	readonly TEST_MYSQL8_4_DATABASE = 'riaodb';
+	readonly TEST_MYSQL8_4_ROOT_DATABASE = 'db';
 }
 
 /**

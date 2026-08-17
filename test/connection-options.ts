@@ -16,3 +16,11 @@ export const connectionOptionsMySql8: MySqlConnectionOptions = {
 	username: env.TEST_MYSQL8_USERNAME,
 	password: env.TEST_MYSQL8_PASSWORD,
 };
+
+export const connectionOptionsMySql8_4: MySqlConnectionOptions = {
+	host: env.TEST_MYSQL8_4_HOST,
+	port: env.TEST_MYSQL8_4_PORT,
+	database: env.TEST_MYSQL8_4_DATABASE,
+	username: env.TEST_MYSQL8_4_USERNAME,
+	password: env.TEST_MYSQL8_4_PASSWORD,
+};
