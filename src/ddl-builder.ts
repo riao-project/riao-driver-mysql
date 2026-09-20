@@ -11,6 +11,7 @@ export class MySqlDataDefinitionBuilder extends DataDefinitionBuilder {
 		this.columnTypes = <any>{
 			...this.columnTypes,
 			TIMESTAMP: 'DATETIME',
+			JSON: 'JSON',
 		};
 	}
 
